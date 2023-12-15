@@ -330,7 +330,8 @@ variable "subnets" {
   validation {
     error_message = "Keys for `subnets` must be in the order `zone-1`, `zone-2`, `zone-3`. "
     condition = (
-      (var.subnets == null || length(var.subnets) == 0) ? true :
+      (var.subnets == null) ? true :
+      (length(var.subnets) == 0) ? true :
       (length(var.subnets) == 1 && keys(var.subnets)[0] == "zone-1") ||
       (length(var.subnets) == 2 && keys(var.subnets)[0] == "zone-1" && keys(var.subnets)[1] == "zone-2") ||
       (length(var.subnets) == 3 && keys(var.subnets)[0] == "zone-1" && keys(var.subnets)[1] == "zone-2") && keys(var.subnets)[2] == "zone-3"
